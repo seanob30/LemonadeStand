@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows.Input.Manipulations;
 
 namespace Lemonade_Stand
 {
@@ -41,11 +43,20 @@ namespace Lemonade_Stand
             Console.WriteLine(" WISH, BUT HOW MUCH PROFIT YOU MAKE IS UP\n");
             Console.WriteLine(" TO YOU. IF YOU MAKE THE MOST MONEY YOURE\n");
             Console.WriteLine(" THE WINNER!!\n\n");
-            Console.Write(" Press any key to begin your venture!!");
-            Console.ReadKey();
-            Console.Clear();
+            Console.Write(" Press SPACE to continue!!");
+            if (Console.ReadKey().Key == ConsoleKey.Spacebar)
+            {
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("?SYNTAX ERROR..PRESS SPACE PLEASE");
+                TakeShortBreak();
+                Console.Clear();
+                DisplayWelcomeScreen();
+            }
         }
-        private static void DisplayRulesScreen()
+        private void DisplayRulesScreen()
         {
             Console.WindowWidth = 43;
             Console.WriteLine(" TO MANAGE YOUR LEMONADE STAND, YOU WILL\n");
@@ -53,7 +64,7 @@ namespace Lemonade_Stand
             Console.WriteLine(" -HOW MANY LEMONS, SUGAR, AND ICE TO BUY\n");
             Console.WriteLine(" -WHAT YOU WANT THE RECIPE TO BE\n");
             Console.WriteLine(" -WHAT YOU WANT TO CHARGE FOR EACH GLASS\n\n");
-            Console.WriteLine(" YOU WILL BEGIN WITH $20 CASH (ASSETS).\n");
+            Console.WriteLine(" YOU WILL BEGIN WITH $2.00 CASH (ASSETS).\n");
             Console.WriteLine(" YOU WILL USE THOSE ASSETS TO BUY THE\n");
             Console.WriteLine(" INGREDIENTS FOR THE LEMONADE. BE AWARE\n");
             Console.WriteLine(" OF THE WEATHER, AS IT WILL AFFECT YOUR\n");
@@ -73,9 +84,51 @@ namespace Lemonade_Stand
                 DisplayRulesScreen();
             }
         }
-        private void StartGame()
+        public void StartGame()
         {
+            Player playerOne = new Player();
+            Weather outside = new Weather();
+            Store purchase = new Store();
+            while (true)
+            {
+                outside.ChooseWeather();
+                purchase.PurchaseItems();
+                Console.ReadKey();
+            }
             
         }
+
+        private void QuitGame()
+        {
+            Console.Write("Are you sure you would like to quit?: ");
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "yes":
+                case "y":
+                    Environment.Exit(0);
+                    break;
+                case "no":
+                case "n":
+                    Console.WriteLine("Returning back to game..");
+                    TakeShortBreak();
+                    Console.Clear();
+                    StartGame();
+                    break;
+                default:
+                    Console.WriteLine("Please type in yes or no.");
+                    TakeShortBreak();
+                    Console.Clear();
+                    QuitGame();
+                    break;
+
+            }
+        }
+
+        private void TakeShortBreak()
+        {
+            System.Threading.Thread.Sleep(800);
+        }
+       
     }
 }

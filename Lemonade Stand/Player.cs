@@ -8,5 +8,6 @@ namespace Lemonade_Stand
 {
     class Player
     {
+        decimal assets = 2.00m;
     }
 }
