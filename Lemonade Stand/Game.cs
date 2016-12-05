@@ -10,13 +10,17 @@ namespace Lemonade_Stand
 {
     class Game
     {
-        public Player playerOne = new Player();
-        public Store purchase = new Store();
+        Player player;
+        Store store;
+        int currentDay = 0;
 
         public void RunGame()
         {
+            player = new Player();
+            store = new Store();
             DisplayTitleScreen();
             DisplayWelcomeScreen();
+            player.SetName();
             DisplayUI();
         }
         public void DisplayUI()
@@ -33,11 +37,13 @@ namespace Lemonade_Stand
                     break;
                 case "2":
                     Console.Clear();
-                    purchase.PurchaseItems(playerOne);
+                    store.DisplayStoreScreen(player);
                     DisplayUI();
                     break;
                 case "3":
                     Console.Clear();
+                    player.playerRecipe.AlterRecipe();
+                    DisplayUI();
                     break;
                 case "4":
                     Console.Clear();
@@ -57,7 +63,11 @@ namespace Lemonade_Stand
         }
         public void BeginDay()
         {
+            currentDay++;
             Weather outside = new Weather();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Day " + currentDay + "\n");
+            Console.ResetColor();
             outside.ChooseWeather();
             DisplayUI();
         }
@@ -144,7 +154,7 @@ namespace Lemonade_Stand
         {
             Console.WriteLine(">>1. Begin Day\n");
             Console.WriteLine(">>2. Visit The Store\n");
-            Console.WriteLine(">>3. Change Recipe\n");
+            Console.WriteLine(">>3. Alter Recipe\n");
             Console.WriteLine(">>4. Check Rules\n");
             Console.WriteLine(">>5. Quit Game\n\n");
         }
@@ -156,7 +166,7 @@ namespace Lemonade_Stand
             Console.WriteLine(" -HOW MANY LEMONS, SUGAR, AND ICE TO BUY\n");
             Console.WriteLine(" -WHAT YOU WANT THE RECIPE TO BE\n");
             Console.WriteLine(" -WHAT YOU WANT TO CHARGE FOR EACH GLASS\n\n");
-            Console.WriteLine(" YOU WILL BEGIN WITH $2.00 CASH (ASSETS).\n");
+            Console.WriteLine(" YOU WILL BEGIN WITH $15.00 CASH (ASSETS).\n");
             Console.WriteLine(" YOU WILL USE THOSE ASSETS TO BUY THE\n");
             Console.WriteLine(" INGREDIENTS FOR THE LEMONADE. BE AWARE\n");
             Console.WriteLine(" OF THE WEATHER, AS IT WILL AFFECT YOUR\n");

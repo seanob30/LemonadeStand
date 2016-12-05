@@ -8,34 +8,35 @@ namespace Lemonade_Stand
 {
     class Store
     {
-        public void PurchaseItems(Player playerOne)
+        decimal lemonPrice = .04m;
+        decimal sugarPrice = .03m;
+        decimal icePrice = .01m;
+        decimal cupsPrice = .02m;
+
+        public void DisplayStoreScreen(Player player)
         {
             Console.WindowWidth = 55;
-            InsertStoreSign(playerOne);
+            InsertStoreSign(player);
             DisplayStoreItems();
             Console.Write(" What would you like to buy? Enter 1-5: ");
             string choice = Console.ReadLine().ToLower();
             switch (choice)
             {
                 case "1":
-                    playerOne.assets -= .18m;
-                    playerOne.lemons += 25;
-                    ShowSuccesfulPurchase(playerOne);
+                    Console.Clear();
+                    PurchaseLemons(player);
                     break;
                 case "2":
-                    playerOne.assets -= .13m;
-                    playerOne.sugar += 20;
-                    ShowSuccesfulPurchase(playerOne);
+                    Console.Clear();
+                    PurchaseSugar(player);
                     break;
                 case "3":
-                    playerOne.assets -= .08m;
-                    playerOne.ice += 100;
-                    ShowSuccesfulPurchase(playerOne);
+                    Console.Clear();
+                    PurchaseIce(player);
                     break;
                 case "4":
-                    playerOne.assets -= .07m;
-                    playerOne.cups += 30;
-                    ShowSuccesfulPurchase(playerOne);
+                    Console.Clear();
+                    PurchaseCups(player);
                     break;
                 case "5":
                     Console.Clear();
@@ -47,12 +48,129 @@ namespace Lemonade_Stand
                     Console.WriteLine("Please enter a valid store item.");
                     TakeShortBreak();
                     Console.Clear();
-                    PurchaseItems(playerOne);
+                    DisplayStoreScreen(player);
                     break;
             } 
         }
-
-        private void InsertStoreSign(Player playerOne)
+        private void PurchaseLemons(Player player)
+        {
+            Console.WriteLine("How many lemons would you like to purchase?: ");
+            try
+            {
+                string lemonInput = Console.ReadLine();
+                decimal lemonQuantity = Convert.ToDecimal(lemonInput);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(lemonPrice, lemonQuantity)))
+                {
+                    player.playerWallet.assets -= Decimal.Multiply(lemonPrice, lemonQuantity);
+                    player.lemons += lemonQuantity;
+                    ShowSuccesfulPurchase(player);
+                }
+                else
+                {
+                    ShowUnsuccesfulPurchase(player);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error..Please enter a number.");
+                TakeShortBreak();
+                Console.Clear();
+                DisplayStoreScreen(player);
+            }
+        }
+        private void PurchaseSugar(Player player)
+        {
+            Console.WriteLine("How much sugar would you like to purchase?: ");
+            try
+            {
+                string sugarInput = Console.ReadLine();
+                decimal sugarQuantity = Convert.ToDecimal(sugarInput);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(sugarPrice, sugarQuantity)))
+                {
+                    player.playerWallet.assets -= Decimal.Multiply(sugarPrice, sugarQuantity);
+                    player.sugar += sugarQuantity;
+                    ShowSuccesfulPurchase(player);
+                }
+                else
+                {
+                    ShowUnsuccesfulPurchase(player);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error..Please enter a number.");
+                TakeShortBreak();
+                Console.Clear();
+                DisplayStoreScreen(player);
+            }
+        }
+        private void PurchaseIce(Player player)
+        {
+            Console.WriteLine("How much ice would you like to purchase?: ");
+            try
+            {
+                string iceInput = Console.ReadLine();
+                decimal iceQuantity = Convert.ToDecimal(iceInput);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(icePrice, iceQuantity)))
+                {
+                    player.playerWallet.assets -= Decimal.Multiply(icePrice, iceQuantity);
+                    player.ice += iceQuantity;
+                    ShowSuccesfulPurchase(player);
+                }
+                else
+                {
+                    ShowUnsuccesfulPurchase(player);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error..Please enter a number.");
+                TakeShortBreak();
+                Console.Clear();
+                DisplayStoreScreen(player);
+            }
+        }
+        private void PurchaseCups(Player player)
+        {
+            Console.WriteLine("How many cups would you like to purchase?: ");
+            try
+            {
+                string cupInput = Console.ReadLine();
+                decimal cupQuantity = Convert.ToDecimal(cupInput);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(cupsPrice, cupQuantity)))
+                {
+                    player.playerWallet.assets -= Decimal.Multiply(cupsPrice, cupQuantity);
+                    player.cups += cupQuantity;
+                    ShowSuccesfulPurchase(player);
+                }
+                else
+                {
+                    ShowUnsuccesfulPurchase(player);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error..Please enter a number.");
+                TakeShortBreak();
+                Console.Clear();
+                DisplayStoreScreen(player);
+            }
+        }
+        private void ShowSuccesfulPurchase(Player player)
+        {
+            Console.WriteLine("PURCHASE SUCCESSFUL!");
+            TakeShortBreak();
+            Console.Clear();
+            DisplayStoreScreen(player);
+        }
+        private void ShowUnsuccesfulPurchase(Player player)
+        {
+            Console.WriteLine("INSUFFICENT FUNDS.");
+            TakeShortBreak();
+            Console.Clear();
+            DisplayStoreScreen(player);
+        }
+        private void InsertStoreSign(Player player)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("  _____ _   _  _____   _____ _____ ___________ _____ ");
@@ -62,26 +180,17 @@ namespace Lemonade_Stand
             Console.WriteLine("   | | | | | || |___  /\\__/ / | | \\ \\_/ / |\\ \\| |___ ");
             Console.WriteLine("   \\_/ \\_| |_/\\____/  \\____/  \\_/  \\___/\\_| \\_\\____/ \n\n");
             Console.ResetColor();
-            Console.WriteLine("  Lemons: " + playerOne.lemons + "     Sugar: " + playerOne.sugar + "     Ice: " + playerOne.ice + "     Cups: " + playerOne.cups + "\n");
-            Console.WriteLine("                 Player Assets: " + playerOne.assets + "\n\n");
+            Console.WriteLine("   Lemons: " + player.lemons + "      Sugar: " + player.sugar + "      Ice: " + player.ice + "      Cups: " + player.cups + "\n");
+            Console.WriteLine("                 " + player.GetName() +"'s Assets: " + player.playerWallet.assets + "\n\n");
         }
         private void DisplayStoreItems()
         {
-            Console.WriteLine("1.LEMONS x25>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.18\n");
-            Console.WriteLine("2.SUGAR  x20>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.13\n");
-            Console.WriteLine("3.ICE    x100>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.08\n");
-            Console.WriteLine("4.CUPS   x30>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.07\n");
+            Console.WriteLine("1.LEMONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.04\n");
+            Console.WriteLine("2.SUGAR  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.03\n");
+            Console.WriteLine("3.ICE    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.01\n");
+            Console.WriteLine("4.CUPS   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.02\n");
             Console.WriteLine("5.EXIT STORE\n\n");
 
-        }
-        private void ShowSuccesfulPurchase(Player playerOne)
-        {
-            Console.Clear();
-            Console.WriteLine("PURCHASE SUCCESSFUL!");
-            TakeShortBreak();
-            Console.Clear();
-            PurchaseItems(playerOne);
-            
         }
         private void TakeShortBreak()
         {

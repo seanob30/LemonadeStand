@@ -42,7 +42,7 @@ namespace Lemonade_Stand
             Console.Clear();
 
         }
-        public void RandomizeWeather()
+        private void RandomizeWeather()
         {
             var motherNature = new List<string> { "rainy", "cloudy", "clear", "sunny", "humid" };
             Random rnd = new Random();
