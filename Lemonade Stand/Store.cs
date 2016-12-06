@@ -62,7 +62,7 @@ namespace Lemonade_Stand
                 if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(lemonPrice, lemonQuantity)))
                 {
                     player.playerWallet.assets -= Decimal.Multiply(lemonPrice, lemonQuantity);
-                    player.lemons += lemonQuantity;
+                    player.AddLemons(lemonQuantity);
                     ShowSuccesfulPurchase(player);
                 }
                 else
@@ -88,7 +88,7 @@ namespace Lemonade_Stand
                 if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(sugarPrice, sugarQuantity)))
                 {
                     player.playerWallet.assets -= Decimal.Multiply(sugarPrice, sugarQuantity);
-                    player.sugar += sugarQuantity;
+                    player.AddSugar(sugarQuantity);
                     ShowSuccesfulPurchase(player);
                 }
                 else
@@ -114,7 +114,7 @@ namespace Lemonade_Stand
                 if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(icePrice, iceQuantity)))
                 {
                     player.playerWallet.assets -= Decimal.Multiply(icePrice, iceQuantity);
-                    player.ice += iceQuantity;
+                    player.AddIce(iceQuantity);
                     ShowSuccesfulPurchase(player);
                 }
                 else
@@ -140,7 +140,7 @@ namespace Lemonade_Stand
                 if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(cupsPrice, cupQuantity)))
                 {
                     player.playerWallet.assets -= Decimal.Multiply(cupsPrice, cupQuantity);
-                    player.cups += cupQuantity;
+                    player.AddCups(cupQuantity);
                     ShowSuccesfulPurchase(player);
                 }
                 else
@@ -180,7 +180,7 @@ namespace Lemonade_Stand
             Console.WriteLine("   | | | | | || |___  /\\__/ / | | \\ \\_/ / |\\ \\| |___ ");
             Console.WriteLine("   \\_/ \\_| |_/\\____/  \\____/  \\_/  \\___/\\_| \\_\\____/ \n\n");
             Console.ResetColor();
-            Console.WriteLine("   Lemons: " + player.lemons + "      Sugar: " + player.sugar + "      Ice: " + player.ice + "      Cups: " + player.cups + "\n");
+            Console.WriteLine(" Lemons: " + player.GetLemons() + "     Sugar: " + player.GetSugar() + "     Ice: " + player.GetIce() + "     Cups: " + player.GetCups() + "\n");
             Console.WriteLine("                 " + player.GetName() +"'s Assets: " + player.playerWallet.assets + "\n\n");
         }
         private void DisplayStoreItems()

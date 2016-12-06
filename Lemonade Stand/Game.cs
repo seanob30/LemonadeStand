@@ -13,7 +13,6 @@ namespace Lemonade_Stand
         Player player;
         Store store;
         int currentDay = 0;
-
         public void RunGame()
         {
             player = new Player();
