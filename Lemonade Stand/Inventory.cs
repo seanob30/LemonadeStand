@@ -17,6 +17,7 @@ namespace Lemonade_Stand
 
         public void CreatePitchers(Recipe playerRecipe)
         {
+            Console.WindowWidth = 50;
             Console.Write(" How many pitchers would you like to make?: ");
             string pitcherInput = Console.ReadLine();
             try
