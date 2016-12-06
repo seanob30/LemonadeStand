@@ -8,12 +8,6 @@ namespace Lemonade_Stand
 {
     class Pitcher
     {
-        public void CreatePitchers(Player player)
-        {
-            player.SubtractLemons(player.playerRecipe.ingredientLemon);
-            player.SubtractSugar(player.playerRecipe.ingredientSugar);
-            player.SubtractIce(player.playerRecipe.ingredientIce);
-        }
 
     }
 }

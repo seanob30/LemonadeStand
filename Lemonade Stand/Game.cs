@@ -20,9 +20,9 @@ namespace Lemonade_Stand
             DisplayTitleScreen();
             DisplayWelcomeScreen();
             player.SetName();
-            DisplayUI();
+            DisplayUI(player.playerInventory);
         }
-        public void DisplayUI()
+        public void DisplayUI(Inventory playerInventory)
         {
             InsertMenuTitle();
             DisplayUIItems();
@@ -32,35 +32,35 @@ namespace Lemonade_Stand
             {
                 case "1":
                     Console.Clear();
-                    BeginDay();
+                    BeginDay(playerInventory);
                     break;
                 case "2":
                     Console.Clear();
-                    store.DisplayStoreScreen(player);
-                    DisplayUI();
+                    store.DisplayStoreScreen(player, playerInventory);
+                    DisplayUI(playerInventory);
                     break;
                 case "3":
                     Console.Clear();
                     player.playerRecipe.AlterRecipe();
-                    DisplayUI();
+                    DisplayUI(playerInventory);
                     break;
                 case "4":
                     Console.Clear();
-                    DisplayRulesScreen();
+                    DisplayRulesScreen(playerInventory);
                     break;
                 case "5":
                     Console.Clear();
-                    QuitGame();
+                    QuitGame(playerInventory);
                     break;
                 default:
                     Console.WriteLine("Please enter a number 1-5");
                     TakeShortBreak();
                     Console.Clear();
-                    DisplayUI();
+                    DisplayUI(playerInventory);
                     break;
             }
         }
-        public void BeginDay()
+        public void BeginDay(Inventory playerInventory)
         {
             currentDay++;
             Weather outside = new Weather();
@@ -68,10 +68,11 @@ namespace Lemonade_Stand
             Console.WriteLine("Day " + currentDay + "\n");
             Console.ResetColor();
             outside.ChooseWeather();
-            DisplayUI();
+            playerInventory.CreatePitchers(player.playerRecipe);
+            DisplayUI(playerInventory);
         }
 
-        private void QuitGame()
+        private void QuitGame(Inventory playerInventory)
         {
             Console.WriteLine("Are you sure you would like to quit?");
             string input = Console.ReadLine().ToLower();
@@ -86,13 +87,13 @@ namespace Lemonade_Stand
                     Console.WriteLine("Returning back to game..");
                     TakeShortBreak();
                     Console.Clear();
-                    DisplayUI();
+                    DisplayUI(playerInventory);
                     break;
                 default:
                     Console.WriteLine("Please type in yes or no.");
                     TakeShortBreak();
                     Console.Clear();
-                    QuitGame();
+                    QuitGame(playerInventory);
                     break;
 
             }
@@ -157,7 +158,7 @@ namespace Lemonade_Stand
             Console.WriteLine(">>4. Check Rules\n");
             Console.WriteLine(">>5. Quit Game\n\n");
         }
-        private void DisplayRulesScreen()
+        private void DisplayRulesScreen(Inventory playerInventory)
         {
             Console.WindowWidth = 43;
             Console.WriteLine(" TO MANAGE YOUR LEMONADE STAND, YOU WILL\n");
@@ -174,7 +175,7 @@ namespace Lemonade_Stand
             Console.ReadKey();
             Console.Clear();
             TakeShortBreak();
-            DisplayUI();
+            DisplayUI(playerInventory);
             
         }
         private void TakeShortBreak()
