@@ -25,7 +25,7 @@ namespace Lemonade_Stand
                 pitcherQuantity = Convert.ToInt32(pitcherInput);
                 for (int i = 0; i < pitcherQuantity; i++)
                 {
-                    if (CheckForSufficientIngredients(playerRecipe.ingredientLemon, playerRecipe.ingredientSugar, playerRecipe.ingredientIce))
+                    if (CheckForSufficientIngredients(playerRecipe.ingredientLemon, playerRecipe.ingredientSugar, playerRecipe.ingredientIce, GetCups()))
                     {
                         Pitcher pitcher = new Pitcher();
                         pitchers.Add(pitcher);
@@ -49,9 +49,9 @@ namespace Lemonade_Stand
             Console.Clear();
             DisplayPitcherAmount();
         }
-        public bool CheckForSufficientIngredients(int lemonAmount, int sugarAmount, int iceAmount)
+        public bool CheckForSufficientIngredients(int lemonAmount, int sugarAmount, int iceAmount, int cupAmount)
         {
-            if (GetLemons() >= lemonAmount && GetSugar() >= sugarAmount && GetIce() >= iceAmount)
+            if (GetLemons() >= lemonAmount && GetSugar() >= sugarAmount && GetIce() >= iceAmount && GetCups() >= cupAmount)
             {
                 return true;
             }
@@ -65,6 +65,7 @@ namespace Lemonade_Stand
             SubtractLemons(playerRecipe.ingredientLemon);
             SubtractSugar(playerRecipe.ingredientSugar);
             SubtractIce(playerRecipe.ingredientIce);
+            SubtractCups(10);
         }
         public void AddLemons(decimal amount)
         {
@@ -117,6 +118,13 @@ namespace Lemonade_Stand
             for (int i = 0; i < amount; i++)
             {
                 ices.RemoveAt(0);
+            }
+        }
+        public void SubtractCups(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                cups.RemoveAt(0);
             }
         }
         public int GetLemons()

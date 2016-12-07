@@ -12,17 +12,18 @@ namespace Lemonade_Stand
     {
         Player player;
         Store store;
-        int currentDay = 0;
+        Day newDay;
         public void RunGame()
         {
             player = new Player();
             store = new Store();
+            newDay = new Day();
             DisplayTitleScreen();
             DisplayWelcomeScreen();
             player.SetName();
-            DisplayUI(player.playerInventory);
+            DisplayUI();
         }
-        public void DisplayUI(Inventory playerInventory)
+        public void DisplayUI()
         {
             InsertMenuTitle();
             DisplayUIItems();
@@ -32,47 +33,36 @@ namespace Lemonade_Stand
             {
                 case "1":
                     Console.Clear();
-                    BeginDay(playerInventory);
+                    newDay.BeginDay(player);
+                    DisplayUI();
                     break;
                 case "2":
                     Console.Clear();
-                    store.DisplayStoreScreen(player, playerInventory);
-                    DisplayUI(playerInventory);
+                    store.DisplayStoreScreen(player, player.playerInventory);
+                    DisplayUI();
                     break;
                 case "3":
                     Console.Clear();
                     player.playerRecipe.AlterRecipe();
-                    DisplayUI(playerInventory);
+                    DisplayUI();
                     break;
                 case "4":
                     Console.Clear();
-                    DisplayRulesScreen(playerInventory);
+                    DisplayRulesScreen();
                     break;
                 case "5":
                     Console.Clear();
-                    QuitGame(playerInventory);
+                    QuitGame();
                     break;
                 default:
                     Console.WriteLine("Please enter a number 1-5");
                     TakeShortBreak();
                     Console.Clear();
-                    DisplayUI(playerInventory);
+                    DisplayUI();
                     break;
             }
         }
-        public void BeginDay(Inventory playerInventory)
-        {
-            currentDay++;
-            Weather outside = new Weather();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Day " + currentDay + "\n");
-            Console.ResetColor();
-            outside.ChooseWeather();
-            playerInventory.CreatePitchers(player.playerRecipe);
-            DisplayUI(playerInventory);
-        }
-
-        private void QuitGame(Inventory playerInventory)
+        private void QuitGame()
         {
             Console.WriteLine("Are you sure you would like to quit?");
             string input = Console.ReadLine().ToLower();
@@ -87,13 +77,13 @@ namespace Lemonade_Stand
                     Console.WriteLine("Returning back to game..");
                     TakeShortBreak();
                     Console.Clear();
-                    DisplayUI(playerInventory);
+                    DisplayUI();
                     break;
                 default:
                     Console.WriteLine("Please type in yes or no.");
                     TakeShortBreak();
                     Console.Clear();
-                    QuitGame(playerInventory);
+                    QuitGame();
                     break;
 
             }
@@ -158,7 +148,7 @@ namespace Lemonade_Stand
             Console.WriteLine(">>4. Check Rules\n");
             Console.WriteLine(">>5. Quit Game\n\n");
         }
-        private void DisplayRulesScreen(Inventory playerInventory)
+        private void DisplayRulesScreen()
         {
             Console.WindowWidth = 43;
             Console.WriteLine(" TO MANAGE YOUR LEMONADE STAND, YOU WILL\n");
@@ -175,7 +165,7 @@ namespace Lemonade_Stand
             Console.ReadKey();
             Console.Clear();
             TakeShortBreak();
-            DisplayUI(playerInventory);
+            DisplayUI();
             
         }
         private void TakeShortBreak()

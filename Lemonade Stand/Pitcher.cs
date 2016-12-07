@@ -8,6 +8,11 @@ namespace Lemonade_Stand
 {
     class Pitcher
     {
+        int numberOfCups = 10;
 
+        public int GetLemonadeCups()
+        {
+            return numberOfCups;
+        }
     }
 }
