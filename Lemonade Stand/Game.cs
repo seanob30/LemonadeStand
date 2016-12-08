@@ -115,7 +115,7 @@ namespace Lemonade_Stand
             Console.WriteLine(" RUNNING YOUR OWN LEMONADE STAND. HOW MUCH\n"); 
             Console.WriteLine(" PROFIT YOU MAKE IS UP TO YOU. IF YOU DO \n");
             Console.WriteLine(" NOT GO BANKRUPT, YOU ARE A WINNER!!\n");
-            Console.Write(" Press any key to continue!!");
+            Console.Write("       Press any key to continue!!");
             Console.ReadKey();
             Console.Clear();
         }
