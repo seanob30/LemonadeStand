@@ -25,18 +25,38 @@ namespace Lemonade_Stand
             Console.Write("What is your name?: ");
             name = Console.ReadLine();
             Console.WriteLine("\nWelcome " + name + "!");
-            TakeBreak();
+            Console.ReadKey();
             Console.Clear();
         }
         public void SetPrice()
         {
-            Console.Write(" What would you like to charge a cup?: ");
-            string input = Console.ReadLine();
-            cupPrice = Convert.ToDecimal(input);
-            Console.Clear();
-            Console.WriteLine("Price is set at " + cupPrice);
-            Console.ReadKey();
-            Console.Clear();
+            if (playerInventory.pitchers.Count() > 0)
+            {
+                InsertMoneySymbols();
+                Console.Write(" What would you like to charge a cup?: ");
+                string input = Console.ReadLine();
+                try
+                {
+                    cupPrice = Convert.ToDecimal(input);
+                    CheckForPositiveAmount();
+                    Console.Clear();
+                    Console.WriteLine("Price is set at $" + cupPrice);
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                catch
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter a price, numbers only.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    SetPrice();
+                }
+            }
+            else
+            {
+                Console.Clear();
+            }
         }
         public string GetName()
         {
@@ -46,9 +66,32 @@ namespace Lemonade_Stand
         {
             return cupPrice;
         }
+        private void CheckForPositiveAmount()
+        {
+            if (cupPrice < 0)
+            {
+                Console.Clear();
+                Console.WriteLine(" Please enter a positive number.");
+                TakeBreak();
+                Console.Clear();
+                SetPrice();
+            }
+
+        }
+        public void InsertMoneySymbols()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n     ▄▄███▄▄·    ▄▄███▄▄·    ▄▄███▄▄·");
+            Console.WriteLine("     ██╔════╝    ██╔════╝    ██╔════╝");
+            Console.WriteLine("     ███████╗    ███████╗    ███████╗");
+            Console.WriteLine("     ╚════██║    ╚════██║    ╚════██║");
+            Console.WriteLine("     ███████║    ███████║    ███████║");
+            Console.WriteLine("     ╚═▀▀▀══╝    ╚═▀▀▀══╝    ╚═▀▀▀══╝\n");
+            Console.ResetColor();
+        }
         private void TakeBreak()
         {
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(800);
         }
     }
 

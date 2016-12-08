@@ -19,14 +19,24 @@ namespace Lemonade_Stand
         public void CreatePitchers(Player player)
         {
             Console.WindowWidth = 50;
+            InsertPitcherPicture();
             Console.Write(" How many pitchers would you like to make?: ");
             string pitcherInput = Console.ReadLine();
             try
             {
                 pitcherQuantity = Convert.ToInt32(pitcherInput);
-                for (int i = 0; i < pitcherQuantity; i++)
+                CheckForPositiveAmount(player);
+            }
+            catch
+            {
+                Console.WriteLine("\n Error..Please try again.");
+                TakeBreak();
+                Console.Clear();
+                CreatePitchers(player);
+            }
+            for (int i = 0; i < pitcherQuantity; i++)
                 {
-                    if (CheckForSufficientIngredients(player.playerRecipe.ingredientLemon, player.playerRecipe.ingredientSugar, player.playerRecipe.ingredientIce, GetCups()))
+                    if (CheckForSufficientIngredients(player.playerRecipe.ingredientLemon, player.playerRecipe.ingredientSugar, player.playerRecipe.ingredientIce, 10))
                     {
                         Pitcher pitcher = new Pitcher(player.playerInventory);
                         pitchers.Add(pitcher);
@@ -37,16 +47,9 @@ namespace Lemonade_Stand
                         Console.Clear();
                         Console.WriteLine("\n Error..Insufficient ingredients.");
                         TakeBreak();
+                        Console.Clear();
                     }
                 }
-            }
-            catch
-            {
-                Console.WriteLine("\n Error..Please try again.");
-                TakeBreak();
-                Console.Clear();
-                CreatePitchers(player);
-            }
             Console.Clear();
             DisplayPitcherAmount();
         }
@@ -130,14 +133,8 @@ namespace Lemonade_Stand
         }
         public void RemoveLemonadeCupsAndPitchers()
         {
-            for (int i = 0; i < lemonadeCups.Count(); i++)
-            {
-                lemonadeCups.RemoveAt(0);
-            }
-            for (int i = 0; i < pitchers.Count(); i++)
-            {
-                pitchers.RemoveAt(0);
-            }
+            lemonadeCups.Clear();
+            pitchers.Clear();
         }
         public int GetLemons()
         {
@@ -165,9 +162,31 @@ namespace Lemonade_Stand
             Console.ReadKey();
             Console.Clear();
         }
+        private void CheckForPositiveAmount(Player player)
+        {
+            if (pitcherQuantity < 0)
+            {
+                Console.Clear();
+                Console.WriteLine(" Please enter a positive number.");
+                TakeBreak();
+                Console.Clear();
+                CreatePitchers(player);
+            }
+
+        }
         private void TakeBreak()
         {
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(800);
+        }
+        private void InsertPitcherPicture()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("         __.---.          __.---.");
+            Console.WriteLine("         \\|'---'|-,       \\|'---'|-,");
+            Console.WriteLine("          |     | ))       |     | ))");
+            Console.WriteLine("          |     |-'        |     |-'");
+            Console.WriteLine("          '.___.'          '.___.'\n\n");
+            Console.ResetColor();
         }
     }
 }

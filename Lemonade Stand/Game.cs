@@ -13,10 +13,12 @@ namespace Lemonade_Stand
         Player player;
         Store store;
         Day newDay;
+        Random rnd;
         public void RunGame()
         {
             player = new Player();
             store = new Store();
+            rnd = new Random();
             newDay = new Day();
             DisplayTitleScreen();
             DisplayWelcomeScreen();
@@ -25,15 +27,16 @@ namespace Lemonade_Stand
         }
         public void DisplayUI()
         {
+            Console.WindowWidth = 43;
             InsertMenuTitle();
             DisplayUIItems();
-            Console.Write("What would you like to do?: ");
+            Console.Write(" What would you like to do?: ");
             string menuChoice = Console.ReadLine();
             switch (menuChoice)
             {
                 case "1":
                     Console.Clear();
-                    newDay.BeginDay(player);
+                    newDay.BeginDay(player, rnd);
                     DisplayUI();
                     break;
                 case "2":
@@ -49,10 +52,12 @@ namespace Lemonade_Stand
                 case "4":
                     Console.Clear();
                     DisplayRulesScreen();
+                    DisplayUI();
                     break;
                 case "5":
                     Console.Clear();
                     QuitGame();
+                    DisplayUI();
                     break;
                 default:
                     Console.WriteLine("Please enter a number 1-5");
@@ -74,10 +79,7 @@ namespace Lemonade_Stand
                     break;
                 case "no":
                 case "n":
-                    Console.WriteLine("Returning back to game..");
-                    TakeShortBreak();
                     Console.Clear();
-                    DisplayUI();
                     break;
                 default:
                     Console.WriteLine("Please type in yes or no.");
@@ -110,23 +112,12 @@ namespace Lemonade_Stand
             Console.WindowWidth = 43;
             Console.WriteLine(" HI,  WELCOME TO LEMONSVILLE,  WISCONSIN!\n");
             Console.WriteLine(" IN THIS SMALL TOWN, YOU ARE IN CHARGE OF\n");
-            Console.WriteLine(" RUNNING YOUR OWN LEMONADE STAND. YOU CAN\n");
-            Console.WriteLine(" COMPETE WITH AS MANY OTHER PEOPLE AS YOU\n");
-            Console.WriteLine(" WISH, BUT HOW MUCH PROFIT YOU MAKE IS UP\n");
-            Console.WriteLine(" TO YOU. IF YOU MAKE THE MOST MONEY YOURE\n");
-            Console.WriteLine(" THE WINNER!!\n\n");
-            Console.Write(" Press SPACE to continue!!");
-            if (Console.ReadKey().Key == ConsoleKey.Spacebar)
-            {
-                Console.Clear();
-            }
-            else
-            {
-                Console.WriteLine("?SYNTAX ERROR..PRESS SPACE PLEASE");
-                TakeShortBreak();
-                Console.Clear();
-                DisplayWelcomeScreen();
-            }
+            Console.WriteLine(" RUNNING YOUR OWN LEMONADE STAND. HOW MUCH\n"); 
+            Console.WriteLine(" PROFIT YOU MAKE IS UP TO YOU. IF YOU DO \n");
+            Console.WriteLine(" NOT GO BANKRUPT, YOU ARE A WINNER!!\n");
+            Console.Write(" Press any key to continue!!");
+            Console.ReadKey();
+            Console.Clear();
         }
         private void InsertMenuTitle()
         {
@@ -142,11 +133,11 @@ namespace Lemonade_Stand
         }
         private void DisplayUIItems()
         {
-            Console.WriteLine(">>1. Begin Day\n");
-            Console.WriteLine(">>2. Visit The Store\n");
-            Console.WriteLine(">>3. Alter Recipe\n");
-            Console.WriteLine(">>4. Check Rules\n");
-            Console.WriteLine(">>5. Quit Game\n\n");
+            Console.WriteLine(" >>1. Begin Day\n");
+            Console.WriteLine(" >>2. Visit The Store\n");
+            Console.WriteLine(" >>3. Alter Recipe\n");
+            Console.WriteLine(" >>4. Check Rules\n");
+            Console.WriteLine(" >>5. Quit Game\n\n");
         }
         private void DisplayRulesScreen()
         {
@@ -160,13 +151,11 @@ namespace Lemonade_Stand
             Console.WriteLine(" YOU WILL USE THOSE ASSETS TO BUY THE\n");
             Console.WriteLine(" INGREDIENTS FOR THE LEMONADE. BE AWARE\n");
             Console.WriteLine(" OF THE WEATHER, AS IT WILL AFFECT YOUR\n");
-            Console.WriteLine(" OVERALL SALES..AS WILL YOUR RECIPE.\n\n");
+            Console.WriteLine(" OVERALL SALES..AS WILL YOUR RECIPE...\n");
+            Console.WriteLine(" AND YOUR DAILY PRICE TOO. BE MINDFUL..\n\n");
             Console.Write(" Press any key to return to the main menu..");
             Console.ReadKey();
-            Console.Clear();
-            TakeShortBreak();
-            DisplayUI();
-            
+            Console.Clear(); 
         }
         private void TakeShortBreak()
         {

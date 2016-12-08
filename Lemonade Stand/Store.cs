@@ -12,6 +12,7 @@ namespace Lemonade_Stand
         decimal sugarPrice = .03m;
         decimal icePrice = .01m;
         decimal cupsPrice = .02m;
+        decimal quantity;
 
         public void DisplayStoreScreen(Player player, Inventory playerInventory)
         {
@@ -40,13 +41,10 @@ namespace Lemonade_Stand
                     break;
                 case "5":
                     Console.Clear();
-                    Console.WriteLine("Okay, exiting the store..");
-                    TakeShortBreak();
-                    Console.Clear();
                     break;
                 default:
                     Console.WriteLine("Please enter a valid store item.");
-                    TakeShortBreak();
+                    TakeBreak();
                     Console.Clear();
                     DisplayStoreScreen(player, playerInventory);
                     break;
@@ -58,11 +56,12 @@ namespace Lemonade_Stand
             try
             {
                 string lemonInput = Console.ReadLine();
-                decimal lemonQuantity = Convert.ToDecimal(lemonInput);
-                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(lemonPrice, lemonQuantity)))
+                quantity = Convert.ToDecimal(lemonInput);
+                CheckForPositiveAmount(player);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(lemonPrice, quantity)))
                 {
-                    player.playerWallet.assets -= Decimal.Multiply(lemonPrice, lemonQuantity);
-                    playerInventory.AddLemons(lemonQuantity);
+                    player.playerWallet.assets -= Decimal.Multiply(lemonPrice, quantity);
+                    playerInventory.AddLemons(quantity);
                     ShowSuccesfulPurchase(player, playerInventory);
                 }
                 else
@@ -73,7 +72,7 @@ namespace Lemonade_Stand
             catch
             {
                 Console.WriteLine("Error..Please enter a number.");
-                TakeShortBreak();
+                TakeBreak();
                 Console.Clear();
                 DisplayStoreScreen(player, playerInventory);
             }
@@ -84,11 +83,12 @@ namespace Lemonade_Stand
             try
             {
                 string sugarInput = Console.ReadLine();
-                decimal sugarQuantity = Convert.ToDecimal(sugarInput);
-                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(sugarPrice, sugarQuantity)))
+                quantity = Convert.ToDecimal(sugarInput);
+                CheckForPositiveAmount(player);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(sugarPrice, quantity)))
                 {
-                    player.playerWallet.assets -= Decimal.Multiply(sugarPrice, sugarQuantity);
-                    playerInventory.AddSugar(sugarQuantity);
+                    player.playerWallet.assets -= Decimal.Multiply(sugarPrice, quantity);
+                    playerInventory.AddSugar(quantity);
                     ShowSuccesfulPurchase(player, playerInventory);
                 }
                 else
@@ -99,7 +99,7 @@ namespace Lemonade_Stand
             catch
             {
                 Console.WriteLine("Error..Please enter a number.");
-                TakeShortBreak();
+                TakeBreak();
                 Console.Clear();
                 DisplayStoreScreen(player, playerInventory);
             }
@@ -110,11 +110,12 @@ namespace Lemonade_Stand
             try
             {
                 string iceInput = Console.ReadLine();
-                decimal iceQuantity = Convert.ToDecimal(iceInput);
-                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(icePrice, iceQuantity)))
+                quantity = Convert.ToDecimal(iceInput);
+                CheckForPositiveAmount(player);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(icePrice, quantity)))
                 {
-                    player.playerWallet.assets -= Decimal.Multiply(icePrice, iceQuantity);
-                    playerInventory.AddIce(iceQuantity);
+                    player.playerWallet.assets -= Decimal.Multiply(icePrice, quantity);
+                    playerInventory.AddIce(quantity);
                     ShowSuccesfulPurchase(player, playerInventory);
                 }
                 else
@@ -125,7 +126,7 @@ namespace Lemonade_Stand
             catch
             {
                 Console.WriteLine("Error..Please enter a number.");
-                TakeShortBreak();
+                TakeBreak();
                 Console.Clear();
                 DisplayStoreScreen(player, playerInventory);
             }
@@ -136,11 +137,12 @@ namespace Lemonade_Stand
             try
             {
                 string cupInput = Console.ReadLine();
-                decimal cupQuantity = Convert.ToDecimal(cupInput);
-                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(cupsPrice, cupQuantity)))
+                quantity = Convert.ToDecimal(cupInput);
+                CheckForPositiveAmount(player);
+                if (player.playerWallet.CheckForSufficentFunds(Decimal.Multiply(cupsPrice, quantity)))
                 {
-                    player.playerWallet.assets -= Decimal.Multiply(cupsPrice, cupQuantity);
-                    playerInventory.AddCups(cupQuantity);
+                    player.playerWallet.assets -= Decimal.Multiply(cupsPrice, quantity);
+                    playerInventory.AddCups(quantity);
                     ShowSuccesfulPurchase(player, playerInventory);
                 }
                 else
@@ -151,7 +153,7 @@ namespace Lemonade_Stand
             catch
             {
                 Console.WriteLine("Error..Please enter a number.");
-                TakeShortBreak();
+                TakeBreak();
                 Console.Clear();
                 DisplayStoreScreen(player, playerInventory);
             }
@@ -159,14 +161,14 @@ namespace Lemonade_Stand
         private void ShowSuccesfulPurchase(Player player, Inventory playerInventory)
         {
             Console.WriteLine("PURCHASE SUCCESSFUL!");
-            TakeShortBreak();
+            TakeBreak();
             Console.Clear();
             DisplayStoreScreen(player, playerInventory);
         }
         private void ShowUnsuccesfulPurchase(Player player, Inventory playerInventory)
         {
             Console.WriteLine("INSUFFICENT FUNDS.");
-            TakeShortBreak();
+            TakeBreak();
             Console.Clear();
             DisplayStoreScreen(player, playerInventory);
         }
@@ -185,16 +187,28 @@ namespace Lemonade_Stand
         }
         private void DisplayStoreItems()
         {
-            Console.WriteLine("1.LEMONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.04\n");
-            Console.WriteLine("2.SUGAR  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.03\n");
-            Console.WriteLine("3.ICE    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.01\n");
-            Console.WriteLine("4.CUPS   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.02\n");
-            Console.WriteLine("5.EXIT STORE\n\n");
+            Console.WriteLine(" 1.LEMONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.04\n");
+            Console.WriteLine(" 2.SUGAR  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.03\n");
+            Console.WriteLine(" 3.ICE    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.01\n");
+            Console.WriteLine(" 4.CUPS   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.02\n");
+            Console.WriteLine(" 5.EXIT STORE\n\n");
 
         }
-        private void TakeShortBreak()
+        private void CheckForPositiveAmount(Player player)
         {
-            System.Threading.Thread.Sleep(1000);
+            if (quantity < 0)
+            {
+                Console.Clear();
+                Console.WriteLine(" Please enter a positive number.");
+                TakeBreak();
+                Console.Clear();
+                DisplayStoreScreen(player, player.playerInventory);
+            }
+
+        }
+        private void TakeBreak()
+        {
+            System.Threading.Thread.Sleep(800);
         }
     }
 }

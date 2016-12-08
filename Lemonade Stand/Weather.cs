@@ -18,98 +18,89 @@ namespace Lemonade_Stand
         {
             dailyCustomer = new Customer();
         }
-        public void ChooseWeather()
+        public void ChooseWeather(Random rnd)
         {
-            RandomizeWeather();
+            RandomizeWeather(rnd);
             switch (index)
             {
                 case 0:
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("THE CURRENT WEATHER IS RAINY..\n\n");
-                    RandomizeRainyTemperature();
+                    RandomizeRainyTemperature(rnd);
                     Console.WriteLine("THE TEMPERATURE IS " + chosenTemp + " DEGREES");
                     break;
                 case 1:
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("THE CURRENT WEATHER IS CLOUDY..\n\n");
-                    RandomizeCloudyTemperature();
+                    RandomizeCloudyTemperature(rnd);
                     Console.WriteLine("THE TEMPERATURE IS " + chosenTemp + " DEGREES");
                     break;
                 case 2:
                     Console.ForegroundColor = ConsoleColor.White; 
                     Console.WriteLine("THE CURRENT WEATHER IS CLEAR..\n\n");
-                    RandomizeClearTemperature();
+                    RandomizeClearTemperature(rnd);
                     Console.WriteLine("THE TEMPERATURE IS " + chosenTemp + " DEGREES");
                     break;
                 case 3:
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("THE CURRENT WEATHER IS SUNNY..\n\n");
-                    RandomizeSunnyTemperature();
+                    RandomizeSunnyTemperature(rnd);
                     Console.WriteLine("THE TEMPERATURE IS " + chosenTemp + " DEGREES");
                     break;
                 case 4:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("THE CURRENT WEATHER IS HOT & HUMID\n\n");
-                    RandomizeHumidTemperature();
+                    RandomizeHumidTemperature(rnd);
                     Console.WriteLine("THE TEMPERATURE IS " + chosenTemp + " DEGREES");
                     break;
                 default:
                     break;
             }
             Console.ResetColor();
-            TakeThreeSecondBreak();
+            TakeLongBreak();
             Console.Clear();
-
         }
-        private void RandomizeWeather()
+        private void RandomizeWeather(Random rnd)
         {
             var motherNature = new List<string> { "rainy", "cloudy", "clear", "sunny", "humid" };
-            Random rnd = new Random();
             index = rnd.Next(motherNature.Count);
         }
-        private void RandomizeRainyTemperature()
+        private void RandomizeRainyTemperature(Random rnd)
         {
             minTemp = 33;
             maxTemp = 55;
-            Random rnd = new Random();
             chosenTemp = rnd.Next(minTemp, maxTemp);
         }
-        private void RandomizeCloudyTemperature()
+        private void RandomizeCloudyTemperature(Random rnd)
         {
             minTemp = 40;
             maxTemp = 59;
-            Random rnd = new Random();
             chosenTemp = rnd.Next(minTemp, maxTemp);
         }
-        private void RandomizeClearTemperature()
+        private void RandomizeClearTemperature(Random rnd)
         {
             minTemp = 43;
             maxTemp = 67;
-            Random rnd = new Random();
             chosenTemp = rnd.Next(minTemp, maxTemp);
         }
-        private void RandomizeSunnyTemperature()
+        private void RandomizeSunnyTemperature(Random rnd)
         {
             minTemp = 69;
             maxTemp = 89;
-            Random rnd = new Random();
             chosenTemp = rnd.Next(minTemp, maxTemp);
 
         }
-        private void RandomizeHumidTemperature()
+        private void RandomizeHumidTemperature(Random rnd)
         {
             minTemp = 82;
             maxTemp = 103;
-            Random rnd = new Random();
             chosenTemp = rnd.Next(minTemp, maxTemp);
 
         }
 
-        private void TakeThreeSecondBreak()
+        private void TakeLongBreak()
         {
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(2200);
         }
-
-
     }
 }

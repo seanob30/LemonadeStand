@@ -11,6 +11,7 @@ namespace Lemonade_Stand
         public int ingredientLemon = 4;
         public int ingredientSugar = 4;
         public int ingredientIce = 6;
+        int change;
 
         public void AlterRecipe()
         {
@@ -22,7 +23,6 @@ namespace Lemonade_Stand
             Console.WriteLine(" Which ingredient would you like to alter?");
             Console.Write(" ");
             string input = Console.ReadLine();
-            
             switch(input)
             {
                 case "1":
@@ -39,9 +39,6 @@ namespace Lemonade_Stand
                     break;
                 case "4":
                     Console.Clear();
-                    Console.WriteLine("Okay...exiting.");
-                    TakeBreak();
-                    Console.Clear();
                     break;
                 default:
                     Console.WriteLine("Please enter either lemons, sugar, or ice.");
@@ -51,15 +48,15 @@ namespace Lemonade_Stand
                     break;
             }
         }
-
         private void ChangeAmountOfLemons()
         {
             Console.Write("New lemon amount: ");
             string lemonInput = Console.ReadLine();
             try
             {
-                int lemonChange = Convert.ToInt32(lemonInput);
-                ingredientLemon = lemonChange;
+                change = Convert.ToInt32(lemonInput);
+                CheckForPositiveAmount();
+                ingredientLemon = change;
                 Console.Clear();
                 AlterRecipe();
             }
@@ -71,15 +68,15 @@ namespace Lemonade_Stand
                 ChangeAmountOfLemons();
             }
         }
-
         private void ChangeAmountOfSugar()
         {
             Console.Write("New sugar amount: ");
             string sugarInput = Console.ReadLine();
             try
             {
-                int sugarChange = Convert.ToInt32(sugarInput);
-                ingredientSugar = sugarChange;
+                change = Convert.ToInt32(sugarInput);
+                CheckForPositiveAmount();
+                ingredientSugar = change;
                 Console.Clear();
                 AlterRecipe();
             }
@@ -91,15 +88,15 @@ namespace Lemonade_Stand
                 ChangeAmountOfSugar();
             }
         }
-
         private void ChangeAmountOfIce()
         {
             Console.Write("New ice amount: ");
             string iceInput = Console.ReadLine();
             try
             {
-                int iceChange = Convert.ToInt32(iceInput);
-                ingredientIce = iceChange;
+                change = Convert.ToInt32(iceInput);
+                CheckForPositiveAmount();
+                ingredientIce = change;
                 Console.Clear();
                 AlterRecipe();
             }
@@ -110,20 +107,6 @@ namespace Lemonade_Stand
                 Console.Clear();
                 ChangeAmountOfIce();
             }
-        }
-
-        private static void InsertRecipeSign()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("       ______          _            ");
-            Console.WriteLine("       | ___ \\        (_)           ");
-            Console.WriteLine("       | |_/ /___  ___ _ _ __   ___ ");
-            Console.WriteLine("       |    // _ \\/ __| | '_ \\ / _ \\");
-            Console.WriteLine("       | |\\ \\  __/ (__| | |_) |  __/");
-            Console.WriteLine("       \\_| \\_\\___|\\___|_| .__/ \\___|");
-            Console.WriteLine("                        | |         ");
-            Console.WriteLine("                        |_|         \n\n");
-            Console.ResetColor();
         }
         public int GetLemonRecipe()
         {
@@ -137,9 +120,34 @@ namespace Lemonade_Stand
         {
             return ingredientIce;
         }
+        private void CheckForPositiveAmount()
+        {
+            if (change < 0)
+            {
+                Console.Clear();
+                Console.WriteLine(" Please enter a positive number.");
+                TakeBreak();
+                Console.Clear();
+                AlterRecipe();
+            }
+
+        }
+        private static void InsertRecipeSign()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("       ______          _            ");
+            Console.WriteLine("       | ___ \\        (_)           ");
+            Console.WriteLine("       | |_/ /___  ___ _ _ __   ___ ");
+            Console.WriteLine("       |    // _ \\/ __| | '_ \\ / _ \\");
+            Console.WriteLine("       | |\\ \\  __/ (__| | |_) |  __/");
+            Console.WriteLine("       \\_| \\_\\___|\\___|_| .__/ \\___|");
+            Console.WriteLine("                        | |         ");
+            Console.WriteLine("                        |_|         \n\n");
+            Console.ResetColor();
+        }
         private void TakeBreak()
         {
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(800);
         }
 
     }
