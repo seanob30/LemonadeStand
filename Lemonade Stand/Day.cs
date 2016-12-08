@@ -10,7 +10,7 @@ namespace Lemonade_Stand
     {
         Weather outside;
         int currentDay = 0;
-        decimal cupPrice;
+        
         public void BeginDay(Player player)
         {
             currentDay++;
@@ -19,26 +19,18 @@ namespace Lemonade_Stand
             Console.WriteLine("Day " + currentDay + "\n");
             Console.ResetColor();
             outside.ChooseWeather();
-            outside.dailyCustomer.CreateCustomerPool(outside.chosenTemp, outside, player.playerRecipe);
-            player.playerInventory.CreatePitchers(player.playerRecipe);
-            SetPrice();
-            outside.dailyCustomer.BuyCupOfLemonade(cupPrice);
-            AddProfits(player);
-
+            player.playerInventory.CreatePitchers(player);
+            player.SetPrice();
+            outside.dailyCustomer.CreateCustomerPool(outside.chosenTemp, outside, player);
+            outside.dailyCustomer.BuyCupOfLemonade(player.cupPrice, player);
+            DisplayProfitScreen();
         }
-        private void SetPrice()
+       
+        private void DisplayProfitScreen()
         {
-            Console.Write(" What would you like to charge a cup?: ");
-            string input = Console.ReadLine();
-            cupPrice = Convert.ToDecimal(input);
-            Console.Clear();
-            Console.WriteLine("Price is set at " + cupPrice);
+            Console.WriteLine("You made $" + outside.dailyCustomer.GetDailyProfit() + " today!");
             Console.ReadKey();
             Console.Clear();
-        }
-        private void AddProfits(Player player)
-        {
-            player.playerWallet.assets += outside.dailyCustomer.GetDailyProfit();
         }
     }
 }

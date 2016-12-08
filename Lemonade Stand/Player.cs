@@ -11,6 +11,7 @@ namespace Lemonade_Stand
         public Wallet playerWallet;
         public Recipe playerRecipe;
         public Inventory playerInventory;
+        public decimal cupPrice;
         string name;
 
         public Player()
@@ -27,9 +28,23 @@ namespace Lemonade_Stand
             TakeBreak();
             Console.Clear();
         }
+        public void SetPrice()
+        {
+            Console.Write(" What would you like to charge a cup?: ");
+            string input = Console.ReadLine();
+            cupPrice = Convert.ToDecimal(input);
+            Console.Clear();
+            Console.WriteLine("Price is set at " + cupPrice);
+            Console.ReadKey();
+            Console.Clear();
+        }
         public string GetName()
         {
             return name;
+        }
+        public decimal GetCupPrice()
+        {
+            return cupPrice;
         }
         private void TakeBreak()
         {

@@ -12,9 +12,9 @@ namespace Lemonade_Stand
         int weatherFactor;
         int positiveFactor;
         int negativeFactor;
-        int totalCupsSold;
+        int totalCustomerDemand;
         decimal dailyProfit;
-        public void CreateCustomerPool(int pool, Weather outside, Recipe playerRecipe)
+        public void CreateCustomerPool(int pool, Weather outside, Player player)
         {
             for (int i = 0; i < (pool); i++)
             {
@@ -22,17 +22,26 @@ namespace Lemonade_Stand
                 customers.Add(customer);
             }
             FactorInWeather(outside);
-            GetLemonFactor(playerRecipe);
-            GetSugarFactor(playerRecipe);
-            GetIceFactor(playerRecipe);
+            GetLemonFactor(player.playerRecipe);
+            GetSugarFactor(player.playerRecipe);
+            GetIceFactor(player.playerRecipe);
+            GetPriceFactor(player);
         }
-        public void BuyCupOfLemonade(decimal price)
+        public void BuyCupOfLemonade(decimal price, Player player)
         {
-            totalCupsSold = customers.Count();
-            dailyProfit = totalCupsSold * price;
-            Console.WriteLine("You made " + dailyProfit + " today!");
-            Console.ReadKey();
-            Console.Clear();
+            totalCustomerDemand = customers.Count();
+            if (totalCustomerDemand <= player.playerInventory.lemonadeCups.Count())
+            {
+                dailyProfit = totalCustomerDemand * price;
+                player.playerWallet.assets += dailyProfit;
+                player.playerInventory.RemoveLemonadeCupsAndPitchers();
+            }
+            else if (totalCustomerDemand > player.playerInventory.lemonadeCups.Count())
+            {
+                dailyProfit = player.playerInventory.lemonadeCups.Count() * price;
+                player.playerWallet.assets += dailyProfit;
+                player.playerInventory.RemoveLemonadeCupsAndPitchers();
+            }
         }
         private void FactorInWeather(Weather outside)
         {
@@ -114,6 +123,61 @@ namespace Lemonade_Stand
                 for (int i = 0; i < negativeFactor; i++)
                 {
                     customers.RemoveAt(0);
+                }
+            }
+        }
+        private void GetPriceFactor(Player player)
+        {
+            totalCustomerDemand = customers.Count();
+            if (player.cupPrice >= 1.00m)
+            {
+                for (int i = 0; i < totalCustomerDemand * 0.98; i++)
+                {
+                    customers.RemoveAt(0);
+                }
+            }
+            else if (player.cupPrice > 0.75m)
+            {
+                for (int i = 0; i < totalCustomerDemand * 0.93; i++)
+                {
+                    customers.RemoveAt(0);
+                }
+            }
+            else if (player.cupPrice > 0.65m)
+            {
+                for (int i = 0; i < totalCustomerDemand * 0.85; i++)
+                {
+                    customers.RemoveAt(0);
+                }
+            }
+            else if (player.cupPrice > 0.50m)
+            {
+                for (int i = 0; i < totalCustomerDemand * 0.78; i++)
+                {
+                    customers.RemoveAt(0);
+                }
+            }
+            else if (player.cupPrice > 0.25m)
+            {
+                for (int i = 0; i < totalCustomerDemand * 0.35; i++)
+                {
+                    customers.RemoveAt(0);
+                }
+            }
+            else if (player.cupPrice < 0.10m)
+            {
+                for (int i = 0; i < totalCustomerDemand * 0.40; i++)
+                {
+                    Customer customer = new Customer();
+                    customers.Add(customer);
+                }
+            }
+            else if (player.cupPrice < 0.15m)
+            {
+                for (int i = 0; i < totalCustomerDemand * 0.30; i++)
+                {
+                    Customer customer = new Customer();
+                    customers.Add(customer);
                 }
             }
         }

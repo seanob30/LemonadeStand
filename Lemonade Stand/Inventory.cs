@@ -13,9 +13,10 @@ namespace Lemonade_Stand
         public List<Ice> ices = new List<Ice>();
         public List<Cup> cups = new List<Cup>();
         public List<Pitcher> pitchers = new List<Pitcher>();
+        public List<LemonadeCup> lemonadeCups = new List<LemonadeCup>();
         int pitcherQuantity;
 
-        public void CreatePitchers(Recipe playerRecipe)
+        public void CreatePitchers(Player player)
         {
             Console.WindowWidth = 50;
             Console.Write(" How many pitchers would you like to make?: ");
@@ -25,11 +26,11 @@ namespace Lemonade_Stand
                 pitcherQuantity = Convert.ToInt32(pitcherInput);
                 for (int i = 0; i < pitcherQuantity; i++)
                 {
-                    if (CheckForSufficientIngredients(playerRecipe.ingredientLemon, playerRecipe.ingredientSugar, playerRecipe.ingredientIce, GetCups()))
+                    if (CheckForSufficientIngredients(player.playerRecipe.ingredientLemon, player.playerRecipe.ingredientSugar, player.playerRecipe.ingredientIce, GetCups()))
                     {
-                        Pitcher pitcher = new Pitcher();
+                        Pitcher pitcher = new Pitcher(player.playerInventory);
                         pitchers.Add(pitcher);
-                        RemoveItems(playerRecipe);
+                        RemoveItems(player.playerRecipe);
                     }
                     else
                     {
@@ -44,7 +45,7 @@ namespace Lemonade_Stand
                 Console.WriteLine("\n Error..Please try again.");
                 TakeBreak();
                 Console.Clear();
-                CreatePitchers(playerRecipe);
+                CreatePitchers(player);
             }
             Console.Clear();
             DisplayPitcherAmount();
@@ -125,6 +126,17 @@ namespace Lemonade_Stand
             for (int i = 0; i < amount; i++)
             {
                 cups.RemoveAt(0);
+            }
+        }
+        public void RemoveLemonadeCupsAndPitchers()
+        {
+            for (int i = 0; i < lemonadeCups.Count(); i++)
+            {
+                lemonadeCups.RemoveAt(0);
+            }
+            for (int i = 0; i < pitchers.Count(); i++)
+            {
+                pitchers.RemoveAt(0);
             }
         }
         public int GetLemons()

@@ -8,7 +8,7 @@ namespace Lemonade_Stand
 {
     class Wallet
     {
-        public decimal assets = 15.00m;
+        public decimal assets = 5.00m;
         public bool CheckForSufficentFunds(decimal amount)
         {
             if (amount <= assets)

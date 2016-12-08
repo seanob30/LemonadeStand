@@ -156,7 +156,7 @@ namespace Lemonade_Stand
             Console.WriteLine(" -HOW MANY LEMONS, SUGAR, AND ICE TO BUY\n");
             Console.WriteLine(" -WHAT YOU WANT THE RECIPE TO BE\n");
             Console.WriteLine(" -WHAT YOU WANT TO CHARGE FOR EACH GLASS\n\n");
-            Console.WriteLine(" YOU WILL BEGIN WITH $15.00 CASH (ASSETS).\n");
+            Console.WriteLine(" YOU WILL BEGIN WITH $5.00 CASH (ASSETS).\n");
             Console.WriteLine(" YOU WILL USE THOSE ASSETS TO BUY THE\n");
             Console.WriteLine(" INGREDIENTS FOR THE LEMONADE. BE AWARE\n");
             Console.WriteLine(" OF THE WEATHER, AS IT WILL AFFECT YOUR\n");

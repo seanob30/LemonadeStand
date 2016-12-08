@@ -9,10 +9,13 @@ namespace Lemonade_Stand
     class Pitcher
     {
         int numberOfCups = 10;
-
-        public int GetLemonadeCups()
+        public Pitcher(Inventory playerInventory)
         {
-            return numberOfCups;
+            for (int i = 0; i < numberOfCups; i++)
+            {
+                LemonadeCup newCup = new LemonadeCup();
+                playerInventory.lemonadeCups.Add(newCup);
+            }
         }
     }
 }

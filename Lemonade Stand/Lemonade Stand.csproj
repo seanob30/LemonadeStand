@@ -53,6 +53,7 @@
     <Compile Include="Ice.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Lemon.cs" />
+    <Compile Include="LemonadeCup.cs" />
     <Compile Include="Pitcher.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
