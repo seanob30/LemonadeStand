@@ -87,7 +87,6 @@ namespace Lemonade_Stand
                     Console.Clear();
                     QuitGame();
                     break;
-
             }
         }
         private void DisplayTitleScreen()
@@ -106,7 +105,6 @@ namespace Lemonade_Stand
             Console.Clear();
             Console.ResetColor();
         }
-
         private void DisplayWelcomeScreen()
         {
             Console.WindowWidth = 43;
@@ -161,6 +159,5 @@ namespace Lemonade_Stand
         {
             System.Threading.Thread.Sleep(800);
         }
-       
     }
 }

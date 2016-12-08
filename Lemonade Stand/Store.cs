@@ -13,7 +13,6 @@ namespace Lemonade_Stand
         decimal icePrice = .01m;
         decimal cupsPrice = .02m;
         decimal quantity;
-
         public void DisplayStoreScreen(Player player, Inventory playerInventory)
         {
             Console.WindowWidth = 55;
@@ -192,7 +191,6 @@ namespace Lemonade_Stand
             Console.WriteLine(" 3.ICE    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.01\n");
             Console.WriteLine(" 4.CUPS   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$0.02\n");
             Console.WriteLine(" 5.EXIT STORE\n\n");
-
         }
         private void CheckForPositiveAmount(Player player)
         {
@@ -204,7 +202,6 @@ namespace Lemonade_Stand
                 Console.Clear();
                 DisplayStoreScreen(player, player.playerInventory);
             }
-
         }
         private void TakeBreak()
         {

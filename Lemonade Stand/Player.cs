@@ -76,7 +76,6 @@ namespace Lemonade_Stand
                 Console.Clear();
                 SetPrice();
             }
-
         }
         public void InsertMoneySymbols()
         {

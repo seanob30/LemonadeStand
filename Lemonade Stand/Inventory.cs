@@ -172,7 +172,6 @@ namespace Lemonade_Stand
                 Console.Clear();
                 CreatePitchers(player);
             }
-
         }
         private void TakeBreak()
         {

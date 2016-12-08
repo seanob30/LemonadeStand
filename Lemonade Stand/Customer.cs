@@ -129,7 +129,7 @@ namespace Lemonade_Stand
         private void GetPriceFactor(Player player)
         {
             totalCustomerDemand = customers.Count();
-            if (player.cupPrice >= 1.50m)
+            if (player.cupPrice >= 2.00m)
             {
                 for (int i = 0; i < totalCustomerDemand; i++)
                 {

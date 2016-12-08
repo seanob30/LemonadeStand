@@ -12,7 +12,6 @@ namespace Lemonade_Stand
         public int ingredientSugar = 4;
         public int ingredientIce = 6;
         int change;
-
         public void AlterRecipe()
         {
             InsertRecipeSign();
@@ -130,7 +129,6 @@ namespace Lemonade_Stand
                 Console.Clear();
                 AlterRecipe();
             }
-
         }
         private static void InsertRecipeSign()
         {
