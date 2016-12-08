@@ -9,6 +9,7 @@ namespace Lemonade_Stand
     class Day
     {
         Weather outside;
+        Customer dailyCustomer;
         int currentDay = 0;
         int dailyPitcherAmount;
         decimal dailyLemonCost;
@@ -25,6 +26,7 @@ namespace Lemonade_Stand
         {
             currentDay++;
             outside = new Weather();
+            dailyCustomer = new Customer();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Day " + currentDay + "\n");
             Console.ResetColor();
@@ -32,8 +34,8 @@ namespace Lemonade_Stand
             player.playerInventory.CreatePitchers(player);
             dailyPitcherAmount = player.playerInventory.pitchers.Count();
             player.SetPrice();
-            outside.dailyCustomer.CreateCustomerPool(outside.chosenTemp, outside, player);
-            outside.dailyCustomer.BuyCupOfLemonade(player.cupPrice, player);
+            dailyCustomer.CreateCustomerPool(outside.chosenTemp, outside, player);
+            dailyCustomer.BuyCupOfLemonade(player.cupPrice, player);
             DisplayProfitScreen(player);
         }
         private void DisplayProfitScreen(Player player)
@@ -41,11 +43,11 @@ namespace Lemonade_Stand
             Console.WindowWidth = 43;
             player.InsertMoneySymbols();
             DetermineDailyCosts(player);
-            Console.WriteLine("           Gross Profit:  $" + outside.dailyCustomer.GetDailyProfit());
+            Console.WriteLine("           Gross Profit:  $" + dailyCustomer.GetDailyProfit());
             Console.WriteLine("\n                         +\n");
             Console.WriteLine("           Daily Expense: $" + totalDailyCost);
             Console.WriteLine("         __________________________\n");
-            Console.WriteLine("           Net Profit:    $" + (outside.dailyCustomer.GetDailyProfit() - totalDailyCost));
+            Console.WriteLine("           Net Profit:    $" + (dailyCustomer.GetDailyProfit() - totalDailyCost));
             Console.ReadKey();
             Console.Clear();
         }

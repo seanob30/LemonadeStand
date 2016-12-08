@@ -12,12 +12,7 @@ namespace Lemonade_Stand
         int minTemp;
         int maxTemp;
         public int chosenTemp;
-        public Customer dailyCustomer;
-
-        public Weather()
-        {
-            dailyCustomer = new Customer();
-        }
+        
         public void ChooseWeather(Random rnd)
         {
             RandomizeWeather(rnd);

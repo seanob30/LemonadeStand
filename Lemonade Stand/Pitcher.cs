@@ -8,12 +8,13 @@ namespace Lemonade_Stand
 {
     class Pitcher
     {
+        LemonadeCup newCup;
         int numberOfCups = 10;
         public Pitcher(Inventory playerInventory)
         {
             for (int i = 0; i < numberOfCups; i++)
             {
-                LemonadeCup newCup = new LemonadeCup();
+                newCup = new LemonadeCup();
                 playerInventory.lemonadeCups.Add(newCup);
             }
         }
